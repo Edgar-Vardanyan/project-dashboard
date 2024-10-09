@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Add Widget</h2>
+<form class="dialog-form" [formGroup]="newWidgetForm">
+  <div class="dialog-content" mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Project Name</mat-label>
+      <input
+        (input)="checkNameAvailability()"
+        matInput
+        formControlName="name"
+      />
+      @if (newWidgetForm.controls['name'].hasError('duplicate')) {
+        <mat-error>Project name already exists</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Total Tasks</mat-label>
+      <input type="number" matInput formControlName="tasksTotal" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Completed Tasks</mat-label>
+      <input type="number" matInput formControlName="tasksCompleted" />
+      @if(newWidgetForm.get('tasksCompleted')?.hasError('tasksCompletedExceeds')) {
+        <mat-error> Completed tasks cannot be more than the total tasks </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          formControlName="startDate"
+          placeholder="Start date"
+        />
+        <input matEndDate formControlName="endDate" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      @if (newWidgetForm.controls['startDate'].hasError('matStartDateInvalid'))
+      {
+        <mat-error>Invalid start date</mat-error>
+      } @if (newWidgetForm.controls['endDate'].hasError('matEndDateInvalid')) {
+        <mat-error>Invalid end date</mat-error>
+      }
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button [disabled]="!newWidgetForm.valid" mat-button (click)="onSaveClick()">
+    Save
+  </button>
+</div>

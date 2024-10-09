@@ -1,0 +1,16 @@
+<div class="dashboard-container">
+    <div class="add-button-wrapper">
+        <button (click)="openNewProjectModal()" [matTooltip]="'Add new widget'" mat-fab aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+          </button>
+    </div>
+    <div class="widgets-wrapper" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
+        @for(widget of widgets; track widget.project.id) {
+            <div cdkDrag class="widget">
+                @if(widget.type === 'pie') {
+                    <app-widget [project]="widget.project"></app-widget>
+                }
+            </div>
+        }
+    </div>
+</div>

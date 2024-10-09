@@ -1,0 +1,13 @@
+.dashboard-container {
+    padding: 40px;
+
+    .widgets-wrapper {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .add-button-wrapper {
+        margin-bottom: 25px;
+    }
+}

@@ -1,0 +1,17 @@
+<div class="widget-container" #widgetContainer (resize)="onResizeEnd()">
+    <div class="widget-header">
+        <mat-icon cdkDragHandle class="drag-icon">texture</mat-icon>
+        <span class="project-date">{{ project.startDate }} - {{ project.endDate }}</span>
+        <mat-icon class="delete-icon" (click)="onWidgetDelete(project.id)" >clear</mat-icon>
+    </div>
+    <div class="project-info">
+        <h3>{{ project.name }} - Pie Chart</h3>
+        <p>
+          Total Tasks: {{ project.tasksTotal }}
+        </p>
+    </div>
+    <div class="chart-wrapper">
+        <canvas #pieChart></canvas>
+    </div>
+
+</div>
